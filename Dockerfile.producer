@@ -1,0 +1,27 @@
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Copy solution and project files
+COPY MSRabbitQ.sln ./
+COPY src/Producer.API/Producer.API.csproj ./src/Producer.API/
+COPY src/Shared.Models/Shared.Models.csproj ./src/Shared.Models/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy all source code
+COPY src/Producer.API/ ./src/Producer.API/
+COPY src/Shared.Models/ ./src/Shared.Models/
+
+# Build and publish
+WORKDIR /src/src/Producer.API
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+
+EXPOSE 80
+ENTRYPOINT ["dotnet", "Producer.API.dll"]

@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # RabbitMQ Message Broker Service
+  # This is the core message queue that handles communication between microservices
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-server
+    ports:
+      - "5672:5672"   # AMQP protocol port - used by applications to connect to RabbitMQ
+      - "15672:15672" # Management UI port - web interface to monitor queues
+    environment:
+      # Default credentials (change these in production!)
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - marketing-network
+
+  # Producer Service (API Gateway)
+  # This service receives HTTP requests and publishes messages to RabbitMQ
+  producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.producer
+    container_name: marketing-producer
+    ports:
+      - "5000:80"
+    environment:
+      RabbitMQ__Hostname: rabbitmq
+      RabbitMQ__Port: "5672"
+      RabbitMQ__Username: guest
+      RabbitMQ__Password: guest
+      RabbitMQ__ExchangeName: marketing_exchange
+      RabbitMQ__SmsQueue: sms_queue
+      RabbitMQ__EmailQueue: email_queue
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:80
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - marketing-network
+    restart: unless-stopped
+
+  # SMS Consumer Service
+  # This service consumes messages from the SMS queue and processes them
+  sms-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.sms
+    container_name: sms-consumer-service
+    environment:
+      RABBITMQ_HOSTNAME: rabbitmq
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+      SMS_QUEUE: sms_queue
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - marketing-network
+    restart: unless-stopped
+
+  # Email Consumer Service
+  # This service consumes messages from the Email queue and processes them
+  email-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.email
+    container_name: email-consumer-service
+    environment:
+      RABBITMQ_HOSTNAME: rabbitmq
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+      EMAIL_QUEUE: email_queue
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - marketing-network
+    restart: unless-stopped
+
+# Define persistent volume for RabbitMQ data
+volumes:
+  rabbitmq_data:
+    driver: local
+
+# Define network for service communication
+networks:
+  marketing-network:
+    driver: bridge

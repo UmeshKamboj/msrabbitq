@@ -1,0 +1,26 @@
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Copy solution and project files
+COPY MSRabbitQ.sln ./
+COPY src/SMS.Consumer/SMS.Consumer.csproj ./src/SMS.Consumer/
+COPY src/Shared.Models/Shared.Models.csproj ./src/Shared.Models/
+
+# Restore dependencies
+RUN dotnet restore
+
+# Copy all source code
+COPY src/SMS.Consumer/ ./src/SMS.Consumer/
+COPY src/Shared.Models/ ./src/Shared.Models/
+
+# Build and publish
+WORKDIR /src/src/SMS.Consumer
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/runtime:9.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+
+ENTRYPOINT ["dotnet", "SMS.Consumer.dll"]

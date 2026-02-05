@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "c05E2WqNn70=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/msrabbitq/msrabbitq/src/SMS.Consumer/SMS.Consumer.csproj",
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/rabbitmq.client/7.2.0/rabbitmq.client.7.2.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/system.threading.ratelimiting/8.0.0/system.threading.ratelimiting.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
