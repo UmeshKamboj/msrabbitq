@@ -1,0 +1,13 @@
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.AssemblyInfoInputs.cache
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.AssemblyInfo.cs
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.csproj.CoreCompileInputs.cache
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.sourcelink.json
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/bin/Debug/net10.0/Shared.Models.deps.json
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/bin/Debug/net10.0/Shared.Models.dll
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/bin/Debug/net10.0/Shared.Models.pdb
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.csproj.AssemblyReference.cache
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.dll
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/refint/Shared.Models.dll
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/Shared.Models.pdb
+/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/obj/Debug/net10.0/ref/Shared.Models.dll

@@ -49,6 +49,19 @@
             "related": ".xml"
           }
         }
+      },
+      "Shared.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "RabbitMQ.Client": "7.2.0"
+        },
+        "compile": {
+          "bin/placeholder/Shared.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.Models.dll": {}
+        }
       }
     }
   },
@@ -105,12 +118,18 @@
         "rabbitmq.client.7.2.0.nupkg.sha512",
         "rabbitmq.client.nuspec"
       ]
+    },
+    "Shared.Models/1.0.0": {
+      "type": "project",
+      "path": "../Shared.Models/Shared.Models.csproj",
+      "msbuildProject": "../Shared.Models/Shared.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.AspNetCore.OpenApi >= 10.0.2",
-      "RabbitMQ.Client >= 7.2.0"
+      "RabbitMQ.Client >= 7.2.0",
+      "Shared.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -137,7 +156,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/Shared.Models.csproj": {
+              "projectPath": "/home/runner/work/msrabbitq/msrabbitq/src/Shared.Models/Shared.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
