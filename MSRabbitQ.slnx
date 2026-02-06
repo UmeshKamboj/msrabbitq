@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Email.Consumer/Email.Consumer.csproj" />
+    <Project Path="src/Producer.API/Producer.API.csproj" />
+    <Project Path="src/Shared.Models/Shared.Models.csproj" />
+    <Project Path="src/SMS.Consumer/SMS.Consumer.csproj" />
+  </Folder>
+</Solution>
